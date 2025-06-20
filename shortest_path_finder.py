@@ -4,7 +4,7 @@ import queue
 import time
 
 maze = [
-    ["#", "#", "#", "#", "#", "#", "#", "#", "#"],
+    ["#", "#", "#", "#", "#", "O", "#", "#", "#"],
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
     ["#", " ", "#", "#", " ", "#", "#", " ", "#"],
     ["#", " ", "#", " ", " ", " ", "#", " ", "#"],
@@ -15,14 +15,29 @@ maze = [
     ["#", "#", "#", "#", "#", "#", "#", "#", "#"]
 ]
 
+def print_maze(maze, stdscr, path=[]):
+    BLUE = curses.color_pair(1)
+    RED = curses.color_pair(2)
+
+    for row_idx, row_val in enumerate(maze):
+        for col_idx, col_val in enumerate(row_val):
+            stdscr.addstr(row_idx, col_idx*2, col_val, BLUE) #multiply the row and col to create more space
+
 def main(stdscr):
     # create a color pair
     curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK) #id, foreground, background
-    blue_and_black = curses.color_pair(1)
+    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+
+    # blue_and_black = curses.color_pair(1)
 
     # Add hello world text
+    # stdscr.clear()
+    # stdscr.addstr(0, 0, "Hello world!", blue_and_black) #row, column, text, color_pair
+    # stdscr.refresh()
+    # stdscr.getch()
+
     stdscr.clear()
-    stdscr.addstr(0, 0, "Hello world!", blue_and_black) #row, column, text, color_pair
+    print_maze(maze, stdscr)
     stdscr.refresh()
     stdscr.getch()
 
