@@ -28,6 +28,33 @@ def find_start(maze, start):
         for col_idx, col_val in enumerate(row_val):
             if col_val == start:
                 return row_idx, col_idx
+            
+def find_path(maze, stdscr):
+    start = "O"
+    end = "X"
+    start_pos = find_start(maze, start)
+
+    q = queue.Queue()
+    q.put((start_pos, [start_pos])) #current position, path
+
+    visited = set()
+
+    while not q.empty():
+        current_pos, path = q.get()
+
+def find_neighbors(maze, row, col):
+    neighbors = []
+
+    if row > 0: #UP
+        neighbors.append((row - 1, col))
+    if row + 1 < len(maze): #DOWN
+        neighbors.append((row + 1, col))
+    if col > 0: #LEFT
+        neighbors.append((row, col - 1))
+    if col + 1 < len(maze[0]): # RIGHT
+        neighbors.append((row, col + 1))
+
+    return neighbors
 
 def main(stdscr):
     # create a color pair
