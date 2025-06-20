@@ -12,7 +12,7 @@ maze = [
     ["#", " ", "#", " ", "#", " ", "#", " ", "#"],
     ["#", " ", "#", " ", "#", " ", "#", "#", "#"],
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
-    ["#", "#", "#", "#", "#", "#", "#", "#", "#"]
+    ["#", "#", "#", "#", "#", "#", "#", "X", "#"]
 ]
 
 def print_maze(maze, stdscr, path=[]):
@@ -22,6 +22,12 @@ def print_maze(maze, stdscr, path=[]):
     for row_idx, row_val in enumerate(maze):
         for col_idx, col_val in enumerate(row_val):
             stdscr.addstr(row_idx, col_idx*2, col_val, BLUE) #multiply the row and col to create more space
+
+def find_start(maze, start):
+    for row_idx, row_val in enumerate(maze):
+        for col_idx, col_val in enumerate(row_val):
+            if col_val == start:
+                return row_idx, col_idx
 
 def main(stdscr):
     # create a color pair
