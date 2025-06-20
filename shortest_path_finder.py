@@ -21,7 +21,10 @@ def print_maze(maze, stdscr, path=[]):
 
     for row_idx, row_val in enumerate(maze):
         for col_idx, col_val in enumerate(row_val):
-            stdscr.addstr(row_idx, col_idx*2, col_val, BLUE) #multiply the row and col to create more space
+            if (row_idx, col_idx) in path:
+                stdscr.addstr(row_idx, col_idx*2, "X", RED) #multiply the row and col to create more space
+            else:
+                stdscr.addstr(row_idx, col_idx*2, col_val, BLUE) #multiply the row and col to create more space
 
 def find_start(maze, start):
     for row_idx, row_val in enumerate(maze):
@@ -42,6 +45,11 @@ def find_path(maze, stdscr):
     while not q.empty():
         current_pos, path = q.get()
         row, col = current_pos
+
+        stdscr.clear()
+        print_maze(maze, stdscr, path)
+        time.sleep(0.2) # to slower the visuals
+        stdscr.refresh()
         
         if maze[row][col] == end:
             return path
@@ -86,9 +94,7 @@ def main(stdscr):
     # stdscr.refresh()
     # stdscr.getch()
 
-    stdscr.clear()
-    print_maze(maze, stdscr)
-    stdscr.refresh()
+    find_path(maze, stdscr)
     stdscr.getch()
 
 wrapper(main)
